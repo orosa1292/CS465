@@ -1,11 +1,9 @@
-const fs = require('fs')
-
+/* GET news view */
 const news = (req, res) => {
-    pageTitle = 'Travlr Getaways - News';
-    res.render('news', {title: pageTitle});
-
+    pageTitle = process.env.npm_package_description + " - News";
+    res.render('news', { title: pageTitle});
 };
 
 module.exports = {
-    news
-}
+    news,
+};

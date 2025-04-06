@@ -1,10 +1,9 @@
-const fs = require('fs')
-
+/* GET contact view */
 const contact = (req, res) => {
-    pageTitle = 'Travlr Getaways - Contact';
-    res.render('contact', {title: pageTitle})
+    pageTitle = process.env.npm_package_description + " - Contact";
+    res.render('contact', { title: pageTitle});
 };
 
 module.exports = {
-    contact
-}
+    contact,
+};

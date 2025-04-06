@@ -1,11 +1,9 @@
-const fs = require('fs')
-
+/* GET rooms view */
 const rooms = (req, res) => {
-    pageTitle = 'Travlr Getaways - Rooms';
-    res.render('rooms', {title: pageTitle});
-
-}
+    pageTitle = process.env.npm_package_description + " - Rooms";
+    res.render('rooms', { title: pageTitle});
+};
 
 module.exports = {
-    rooms
-}
+    rooms,
+};

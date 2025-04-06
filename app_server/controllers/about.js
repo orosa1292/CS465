@@ -1,12 +1,9 @@
-const fs = require('fs')
-
-//GET About View
+/* GET about view */
 const about = (req, res) => {
-    pageTitle = 'Travlr Getaways - About';
-    res.render('about', {title: pageTitle});
-
+    pageTitle = process.env.npm_package_description + " - About";
+    res.render('about', { title: pageTitle});
 };
 
 module.exports = {
-    about
-}
+    about,
+};
