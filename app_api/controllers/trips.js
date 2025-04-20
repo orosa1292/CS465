@@ -340,10 +340,35 @@ const tripsFindByCode = async(req, res) => {
     }
 };
 
+// DELETE: /trips/:tripCode - Deletes a trip by code
+const tripsDeleteTrip = async (req, res) => {
+    getUser(req, res, async (req, res) => {
+        try {
+            const trip = await Trip.findOneAndDelete({ code: req.params.tripCode });
+
+            if (!trip) {
+                return res
+                    .status(404)
+                    .json({ message: `Trip with code '${req.params.tripCode}' not found.` });
+            }
+
+            return res
+                .status(204)
+                .json(null); // No content
+        } catch (err) {
+            console.error(err);
+            return res
+                .status(500)
+                .json({ error: err.message });
+        }
+    });
+};
+
 module.exports = {
     tripsList,
     tripsFindByCode,
     tripsAddTrip,
     tripsUpdateTrip,
+    tripsDeleteTrip,
     getUser
 };

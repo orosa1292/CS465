@@ -41,6 +41,19 @@ export class TripListingComponent implements OnInit{
     this.router.navigate(['add-trip'])
   }
 
+  public editTrip(tripCode: string): void {
+    this.router.navigate([`edit-trip/${tripCode}`]);
+  }
+
+  public deleteTrip(tripCode: string): void {
+    if (confirm(`Are you sure you want to delete trip '${tripCode}'?`)) {
+      this.tripDataService.deleteTrip(tripCode).subscribe({
+        next: () => this.getStuff(), // Reloads the trip list
+        error: err => console.error(`Delete error:`, err)
+      });
+    }
+  }
+
   private getStuff(): void {
     this.tripDataService.getTrips()
       .subscribe({

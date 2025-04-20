@@ -53,6 +53,18 @@ export class TripDataService {
     console.log("🔍 Adding trip with token:", token); // Debugging
     return this.http.post<Trip>(this.url, formData, httpOptions);
 }
+
+  public deleteTrip(tripCode: string): Observable<any> {
+    const token = localStorage.getItem('travlr-token');
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+    };
+
+  return this.http.delete(`${this.url}/${tripCode}`, httpOptions);
+}
 /* old addTrip
 
   addTrip(formData: Trip) : Observable<Trip> {

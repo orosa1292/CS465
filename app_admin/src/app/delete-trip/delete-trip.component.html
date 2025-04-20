@@ -1,0 +1,14 @@
+<div class="form-container">
+    <h2>Delete Trip</h2>
+    <form [formGroup]="deleteForm" (ngSubmit)="onDelete()">
+      <div class="form-group">
+        <label for="code">Trip Code</label>
+        <input type="text" id="code" formControlName="code" required />
+        <div *ngIf="submitted && deleteForm.controls['code'].errors">
+          Trip code is required.
+        </div>
+      </div>
+      <button type="submit">Delete Trip</button>
+    </form>
+  </div>
+  

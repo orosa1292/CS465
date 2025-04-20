@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Trip } from '../models/trip';
 import { AuthenticationService } from '../services/authentication.service';
@@ -11,9 +11,9 @@ import { AuthenticationService } from '../services/authentication.service';
   templateUrl: './trip-card.component.html',
   styleUrl: './trip-card.component.css'
 })
-export class TripCardComponent implements OnInit{
+export class TripCardComponent implements OnInit {
   @Input('trip') trip: any;
-  //@Input() trip!: Trip;
+  @Output() onDelete: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
     private router: Router,
@@ -21,16 +21,22 @@ export class TripCardComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-      console.log("Trip card ngOnInit");
+    console.log("Trip card ngOnInit");
   }
 
   public isLoggedIn(): boolean {
     return this.authenticationService.isLoggedIn();
-    }
+  }
 
-  public editTrip(trip: Trip){
+  public editTrip(trip: Trip): void {
     localStorage.removeItem('tripCode');
-    localStorage.setItem('tripCode',trip.code);
+    localStorage.setItem('tripCode', trip.code);
     this.router.navigate(['edit-trip']);
+  }
+
+  public deleteTrip(trip: Trip): void {
+    if (confirm(`Are you sure you want to delete trip '${trip.code}'?`)) {
+      this.onDelete.emit(trip.code);
+    }
   }
 }
